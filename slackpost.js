@@ -3,6 +3,9 @@
 
 var request = require('request');
 
+//SLACKURLはSLACKのincomming web hookのURLに変更して下い
+var SLACKURL = "https://hooks.slack.com/services/XXXXXXXXXXXX"
+
 //SoftLayer API
 //USERNAMEとAPIKEYは自分のものに変更してください
 var vm_list_url= 'https:/USERNAME:APIKEY@api.softlayer.com/rest/v3/SoftLayer_Account/getVirtualGuests.json?objectMask=id;primaryBackendIpAddress;primaryIpAddress;fullyQualifiedDomainName';
@@ -50,12 +53,11 @@ function get_api(url){
 }
 
 //slackにPOSTする
-//XXXXはSLACKのURLに変更して下しあ
 function slack_post(body){
   var text = body;
   var opts = {
     method: 'post',
-    url:"https://hooks.slack.com/services/XXXXXXXXXXXX",
+    url:SLACKURL,
     form: {
       payload: JSON.stringify({text:text})
     },
